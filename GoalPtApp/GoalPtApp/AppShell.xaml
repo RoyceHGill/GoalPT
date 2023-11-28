@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GoalPtApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:GoalPtApp.Pages"
+    xmlns:views="clr-namespace:GoalPtApp.Pages">
+    <TabBar>
+        <Tab Title="Moon Phase"
+            Icon="moon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        </Tab>
+        <Tab Title="Sunrise"
+            Icon="sun.png">
+            <ShellContent ContentTemplate="{DataTemplate local:NewPage1}" />
+        </Tab>
+        <Tab Title="Sunrise"
+            Icon="sun.png">
+            <ShellContent ContentTemplate="{DataTemplate local:NewPage2}" />
+        </Tab>
+    </TabBar>
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+</Shell>

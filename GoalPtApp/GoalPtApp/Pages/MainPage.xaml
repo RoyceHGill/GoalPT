@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="GoalPtApp.Pages.MainPage"
+             xmlns:viewmodel="clr-namespace:GoalPtApp.ViewModels"
+             xmlns:model="clr-namespace:GoalPtApp.Models.DTO"
+             x:DataType="viewmodel:MainPageViewModel"
+             Title="MainPage">
+
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+    </ContentPage.Resources>
+
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label
+                Text="Hello, World!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Welcome to .NET Multi-platform App UI"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="18"
+                HorizontalOptions="Center" />
+
+
+
+            <HorizontalStackLayout
+                HorizontalOptions="Center">
+
+
+                <Button
+                    x:Name="LoginSocialButton"
+                    Text="Log in With Social"
+                    SemanticProperties.Hint="Log in with a social media Account"
+                    Command="{Binding LoginSocialCommand}"
+                    HorizontalOptions="Center"
+                    Margin="8,0,8,0"/>
+
+                <Button 
+                    x:Name="LogoutButton"
+                    Text="Log out"
+                    SemanticProperties.Hint="Log out"
+                    Command="{Binding LogoutCommand}"
+                    HorizontalOptions="Center"
+                    Margin="8,0,8,0"/>
+
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Entry Keyboard="Numeric"
+                   Placeholder="Quantity"
+                   Text="{Binding Quantity}">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior 
+                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                ValidStyle="{StaticResource ValidEntryStyle}"
+                Flags="ValidateOnValueChanged"
+                MinimumValue="1.0"
+                MaximumValue="100.0"
+                MaximumDecimalPlaces="2" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Entry
+                Placeholder="What do you want to achieve?"
+                Text="{Binding Prompt}"
+                />
+
+                <Button 
+                x:Name="GetATaskButton"
+                Text="Submit"
+                SemanticProperties.Hint="Get a Task from the API"
+                Command="{Binding GetAGoalCommand}"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding IsLoggedIn}"/>
+            </HorizontalStackLayout>
+
+            <CollectionView 
+                ItemsSource="{Binding Goals}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate 
+                        x:DataType="model:GoalDTO">
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding Title}"
+                           FontAttributes="Italic"
+                           VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+ 
